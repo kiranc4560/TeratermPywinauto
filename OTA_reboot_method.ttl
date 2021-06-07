@@ -1,0 +1,37 @@
+step=0
+while step<=5
+	pause 5
+	sendln 'logcat -c'
+	pause 3
+	sendln 'logcat &'
+	pause 3
+	sendln 'setenv FwVersion p1000'
+	pause 3
+	sendln 'setenv fwdownload_xml "http://sirium.download.hama.com/P5SIRIUM2100ABT/fwdownload.xml"'
+	pause 3
+	sendln 'reboot'
+	wait 'SysRq : Emergency Remount R/O' 'ERROR'
+	pause 8
+	sendln 'LUCI_local 142 0'
+	pause 10
+	sendln 'LUCI_local 125 vivo,0987654321'
+	pause 20
+	sendln 'netcfg'
+	pause 2
+	sendln 'netcfg'
+	pause 2
+	sendln 'netcfg'
+	pause 2
+	sendln 'logcat -c'
+	pause 3
+	sendln 'logcat &'
+	wait 'SysRq : Emergency Remount R/O' 'ERROR'
+	pause 10
+	sendln 'setenv hostpresent 0'
+	pause 1
+	sendln 'reboot'
+	wait 'SysRq : Emergency Remount R/O' 'ERROR'
+	pause 10
+	step=step+1
+endwhile
+logclose
